@@ -45,8 +45,11 @@ namespace CalculatorSD320
                 case '8':
                 case '9':
                 case '0':
-                case '.':
                     NumberPress(e.KeyChar.ToString());
+                    break;
+
+                case '.':
+                    DecimalPress(e.KeyChar.ToString());
                     break;
 
                 case '+':
@@ -86,10 +89,19 @@ namespace CalculatorSD320
             OperationPress(btn.Text);
         }
 
+        private void Decimal_Click(object sender, EventArgs e)
+        {
+            Button btn = (Button)sender;
+
+            DecimalPress(btn.Text);
+        }
+
         private void ClearEntry_Click(object sender, EventArgs e)
         {
             DisplayOperand = "";
             NumberDisplay.Text = "0";
+            lblBinDisplay.Text = "0";
+            binDecDisplay.Text = "0";
             LocDisplay.Text = "0";
             lblLocDecimalDisplay.Text = "0";
             DisplayClear = true;
@@ -118,13 +130,22 @@ namespace CalculatorSD320
             {
                 NumberDisplay.Text = NumberDisplay.Text.Remove(NumberDisplay.Text.Length - 1);
                 DisplayOperand = NumberDisplay.Text;
+                if (NumType == NumType.Binary)
+                    ToBinary();
+                if (NumType == NumType.Locational)
+                    ToLocational();
             }
 
-            if (NumberDisplay.Text == "0" || NumberDisplay.Text.Length == 0)
+            if (DisplayOperand == "0" || DisplayOperand == "")
             {
                 NumberDisplay.Text = "0";
                 DisplayOperand = "0";
                 DisplayClear = true;
+            }
+
+            if (ErrorTooLarge.Visible)
+            {
+                ErrorTooLarge.Visible = false;
             }
         }
 
@@ -143,17 +164,11 @@ namespace CalculatorSD320
                 DisplayClear = false;
             }
 
-            if (btn == ".")
+            if (DisplayOperand.Length < 10)
             {
-                if (DisplayOperand != "0" && string.IsNullOrWhiteSpace(DisplayOperand))
-                {
-                    DisplayOperand = "0";
-                    DisplayOperand.Append('.');
-                }
+                DisplayOperand += btn;
+                NumberDisplay.Text = DisplayOperand;
             }
-
-            DisplayOperand += btn;
-            NumberDisplay.Text = DisplayOperand;
 
             if (NumType == NumType.Binary)
             {
@@ -164,6 +179,26 @@ namespace CalculatorSD320
             {
                 ToLocational();
             }
+        }
+
+        public void DecimalPress(string value)
+        {
+            if (value == "." && !DisplayOperand.Contains('.'))
+            {
+                if (DisplayOperand == "0" || DisplayOperand == "")
+                {
+                    DisplayOperand = "0";
+                    DisplayOperand += ".";
+                }
+
+                if (DisplayOperand != "0" && DisplayOperand.Last() != '.')
+                {
+                    DisplayOperand += ".";
+                }
+            }
+
+            DisplayClear = false;
+            NumberDisplay.Text = DisplayOperand;
         }
 
         private void EqualsPress()
@@ -245,6 +280,12 @@ namespace CalculatorSD320
         private void TabChange(object sender, EventArgs e)
         {
             TabControl tabControl = (TabControl)sender;
+
+            if (ErrorTooLarge.Visible)
+            {
+                ErrorTooLarge.Visible = false;
+            }
+
             switch (tabControl.SelectedIndex)
             {
                 case 0:
@@ -265,20 +306,15 @@ namespace CalculatorSD320
 
         private void ToBinary()
         {
-            int dec = 0;
+            long dec = 0;
             string remainder = "";
-            int quotient = 1;
+            long quotient = 1;
 
             lblBinDisplay.Text = "0";
 
-            if (NumType == NumType.Locational)
-            {
-                //ToDecimal();
-            }
-
             if (DisplayOperand != "0" && DisplayOperand != "")
             {
-                dec = int.Parse(DisplayOperand);
+                dec = long.Parse(DisplayOperand);
             }
 
             binDecDisplay.Text = dec.ToString();
@@ -301,40 +337,37 @@ namespace CalculatorSD320
 
         private void ToLocational()
         {
-            string result = "";
-            int dec = 0;
-            int quotient = 1;
+            long dec = 0;
             List<int> values = new List<int>();
 
-            char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'x', 'y', 'z' };
+            char[] letters = { 'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z' };
 
-            if(DisplayOperand != "0" && DisplayOperand != "")
-            {
-                dec = int.Parse(DisplayOperand);
-            }
-
-            if (DisplayOperand.Length > 7)
+            if (DisplayOperand.Length >= 9)
             {
                 lblLocDecimalDisplay.Text = "";
                 LocDisplay.Text = "";
                 ErrorTooLarge.Visible = true;
-                DisplayClear = true;
                 return;
+            }
+
+            if (DisplayOperand != "0" && DisplayOperand != "")
+            {
+                dec = long.Parse(DisplayOperand);
             }
 
             while (dec > 0)
             {
-                double currentPowTwo = 1;
-                double nextPowTwo = 2;
+                double currentPowerTwo = 1;
+                double nextPowerTwo = 2;
 
-                while (nextPowTwo < dec)
+                while (nextPowerTwo < dec)
                 {
-                    currentPowTwo = nextPowTwo;
-                    nextPowTwo *= 2;
+                    currentPowerTwo = nextPowerTwo;
+                    nextPowerTwo *= 2;
                 }
 
-                values.Add((int)currentPowTwo);
-                dec -= (int)currentPowTwo;
+                values.Add((int)currentPowerTwo);
+                dec -= (int)currentPowerTwo;
             }
 
             StringBuilder sb = new StringBuilder();
@@ -342,13 +375,20 @@ namespace CalculatorSD320
 
             foreach(int v in values)
             {
-                if (v < letters.Length)
+                if (Math.Log2(v) < letters.Length)
                 {
                     sb.Append(letters[(int)Math.Log2(v)]);
                 }
                 else
                 {
-                    sb.Append(letters[(int)Math.Log2(v)]);
+                    int half = v / 2;
+                    int times = 2;
+                    while ((int)Math.Log2(half) > 26)
+                    {
+                        half = v / 2;
+                        times *= 2;
+                    }
+                    sb.Append(letters[(int)Math.Log2(half)], times);
                 }
             }
 

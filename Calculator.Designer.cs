@@ -71,13 +71,13 @@
             this.tabControl1.Controls.Add(this.DecimalConversion);
             this.tabControl1.Controls.Add(this.BinaryConversion);
             this.tabControl1.Controls.Add(this.LocationalConversion);
-            this.tabControl1.Dock = System.Windows.Forms.DockStyle.Top;
             this.tabControl1.Font = new System.Drawing.Font("Nirmala UI", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.tabControl1.Location = new System.Drawing.Point(0, 0);
+            this.tabControl1.Multiline = true;
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.Padding = new System.Drawing.Point(3, 3);
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(319, 196);
+            this.tabControl1.Size = new System.Drawing.Size(320, 196);
             this.tabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabControl1.TabIndex = 0;
             this.tabControl1.SelectedIndexChanged += new System.EventHandler(this.TabChange);
@@ -92,7 +92,7 @@
             this.DecimalConversion.Location = new System.Drawing.Point(4, 29);
             this.DecimalConversion.Margin = new System.Windows.Forms.Padding(0);
             this.DecimalConversion.Name = "DecimalConversion";
-            this.DecimalConversion.Size = new System.Drawing.Size(311, 163);
+            this.DecimalConversion.Size = new System.Drawing.Size(312, 163);
             this.DecimalConversion.TabIndex = 0;
             this.DecimalConversion.Text = "DEC";
             // 
@@ -111,16 +111,15 @@
             // NumberDisplay
             // 
             this.NumberDisplay.AccessibleDescription = "Calculator number display, displaying numbers entered, and result";
-            this.NumberDisplay.AutoSize = true;
-            this.NumberDisplay.Dock = System.Windows.Forms.DockStyle.Right;
             this.NumberDisplay.Font = new System.Drawing.Font("Nirmala UI", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.NumberDisplay.ForeColor = System.Drawing.Color.Gainsboro;
-            this.NumberDisplay.Location = new System.Drawing.Point(269, 0);
+            this.NumberDisplay.Location = new System.Drawing.Point(2, 0);
             this.NumberDisplay.Name = "NumberDisplay";
             this.NumberDisplay.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.NumberDisplay.Size = new System.Drawing.Size(42, 50);
+            this.NumberDisplay.Size = new System.Drawing.Size(308, 56);
             this.NumberDisplay.TabIndex = 20;
             this.NumberDisplay.Text = "0";
+            this.NumberDisplay.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // BinaryConversion
             // 
@@ -131,33 +130,32 @@
             this.BinaryConversion.Location = new System.Drawing.Point(4, 29);
             this.BinaryConversion.Margin = new System.Windows.Forms.Padding(0);
             this.BinaryConversion.Name = "BinaryConversion";
-            this.BinaryConversion.Size = new System.Drawing.Size(311, 163);
+            this.BinaryConversion.Size = new System.Drawing.Size(312, 163);
             this.BinaryConversion.TabIndex = 1;
             this.BinaryConversion.Text = "BIN";
             // 
             // binDecDisplay
             // 
-            this.binDecDisplay.AutoSize = true;
-            this.binDecDisplay.Dock = System.Windows.Forms.DockStyle.Right;
-            this.binDecDisplay.Location = new System.Drawing.Point(254, 0);
+            this.binDecDisplay.Location = new System.Drawing.Point(2, 142);
             this.binDecDisplay.Name = "binDecDisplay";
-            this.binDecDisplay.Size = new System.Drawing.Size(15, 17);
+            this.binDecDisplay.Size = new System.Drawing.Size(301, 21);
             this.binDecDisplay.TabIndex = 23;
             this.binDecDisplay.Text = "0";
+            this.binDecDisplay.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // lblBinDisplay
             // 
             this.lblBinDisplay.AccessibleDescription = "Calculator number display, displaying numbers entered, and result";
             this.lblBinDisplay.AutoEllipsis = true;
-            this.lblBinDisplay.AutoSize = true;
-            this.lblBinDisplay.Dock = System.Windows.Forms.DockStyle.Right;
             this.lblBinDisplay.Font = new System.Drawing.Font("Nirmala UI", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
-            this.lblBinDisplay.Location = new System.Drawing.Point(269, 0);
+            this.lblBinDisplay.Location = new System.Drawing.Point(2, 0);
+            this.lblBinDisplay.Margin = new System.Windows.Forms.Padding(0);
             this.lblBinDisplay.Name = "lblBinDisplay";
             this.lblBinDisplay.RightToLeft = System.Windows.Forms.RightToLeft.No;
-            this.lblBinDisplay.Size = new System.Drawing.Size(42, 50);
+            this.lblBinDisplay.Size = new System.Drawing.Size(308, 152);
             this.lblBinDisplay.TabIndex = 22;
             this.lblBinDisplay.Text = "0";
+            this.lblBinDisplay.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // LocationalConversion
             // 
@@ -169,7 +167,7 @@
             this.LocationalConversion.Location = new System.Drawing.Point(4, 29);
             this.LocationalConversion.Margin = new System.Windows.Forms.Padding(0);
             this.LocationalConversion.Name = "LocationalConversion";
-            this.LocationalConversion.Size = new System.Drawing.Size(311, 163);
+            this.LocationalConversion.Size = new System.Drawing.Size(312, 163);
             this.LocationalConversion.TabIndex = 2;
             this.LocationalConversion.Text = "LOC";
             // 
@@ -177,7 +175,7 @@
             // 
             this.ErrorTooLarge.AutoSize = true;
             this.ErrorTooLarge.ForeColor = System.Drawing.SystemColors.Desktop;
-            this.ErrorTooLarge.Location = new System.Drawing.Point(64, 33);
+            this.ErrorTooLarge.Location = new System.Drawing.Point(66, 70);
             this.ErrorTooLarge.Name = "ErrorTooLarge";
             this.ErrorTooLarge.Size = new System.Drawing.Size(178, 17);
             this.ErrorTooLarge.TabIndex = 2;
@@ -186,27 +184,24 @@
             // 
             // lblLocDecimalDisplay
             // 
-            this.lblLocDecimalDisplay.AutoSize = true;
-            this.lblLocDecimalDisplay.Dock = System.Windows.Forms.DockStyle.Right;
             this.lblLocDecimalDisplay.ForeColor = System.Drawing.Color.Gainsboro;
-            this.lblLocDecimalDisplay.Location = new System.Drawing.Point(254, 0);
+            this.lblLocDecimalDisplay.Location = new System.Drawing.Point(2, 142);
             this.lblLocDecimalDisplay.Name = "lblLocDecimalDisplay";
-            this.lblLocDecimalDisplay.Size = new System.Drawing.Size(15, 17);
+            this.lblLocDecimalDisplay.Size = new System.Drawing.Size(301, 21);
             this.lblLocDecimalDisplay.TabIndex = 1;
             this.lblLocDecimalDisplay.Text = "0";
+            this.lblLocDecimalDisplay.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // LocDisplay
             // 
-            this.LocDisplay.AutoSize = true;
-            this.LocDisplay.Dock = System.Windows.Forms.DockStyle.Right;
             this.LocDisplay.Font = new System.Drawing.Font("Nirmala UI", 27.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
             this.LocDisplay.ForeColor = System.Drawing.Color.Gainsboro;
-            this.LocDisplay.Location = new System.Drawing.Point(269, 0);
-            this.LocDisplay.Margin = new System.Windows.Forms.Padding(0);
+            this.LocDisplay.Location = new System.Drawing.Point(2, 0);
             this.LocDisplay.Name = "LocDisplay";
-            this.LocDisplay.Size = new System.Drawing.Size(42, 50);
+            this.LocDisplay.Size = new System.Drawing.Size(308, 146);
             this.LocDisplay.TabIndex = 0;
             this.LocDisplay.Text = "0";
+            this.LocDisplay.TextAlign = System.Drawing.ContentAlignment.TopRight;
             // 
             // btnDivide
             // 
@@ -531,7 +526,8 @@
             this.button3.TabIndex = 2;
             this.button3.Text = ".";
             this.button3.UseVisualStyleBackColor = false;
-            this.button3.Click += new System.EventHandler(this.Number_Click);
+            this.button3.Click += new System.EventHandler(this.Decimal_Click);
+            this.button3.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.BtnPress);
             // 
             // btnZero
             // 
@@ -605,13 +601,11 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Calculator";
             this.TopMost = true;
-            this.Click += new System.EventHandler(this.Number_Click);
             this.KeyPress += new System.Windows.Forms.KeyPressEventHandler(this.BtnPress);
             this.tabControl1.ResumeLayout(false);
             this.DecimalConversion.ResumeLayout(false);
             this.DecimalConversion.PerformLayout();
             this.BinaryConversion.ResumeLayout(false);
-            this.BinaryConversion.PerformLayout();
             this.LocationalConversion.ResumeLayout(false);
             this.LocationalConversion.PerformLayout();
             this.ResumeLayout(false);
