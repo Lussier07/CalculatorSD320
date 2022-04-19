@@ -312,6 +312,11 @@ namespace CalculatorSD320
 
             lblBinDisplay.Text = "0";
 
+            if (DisplayOperand.Contains('.'))
+            {
+                DisplayOperand = Math.Round(decimal.Parse(DisplayOperand)).ToString();
+            }
+
             if (DisplayOperand != "0" && DisplayOperand != "")
             {
                 dec = long.Parse(DisplayOperand);
